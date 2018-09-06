@@ -1,6 +1,6 @@
 #!/bin/bash
-directory="$1"
-cd $directory
 
-#cat *|grep -l "invalid user"
-#([A-Z][a-z][a-z]) (\d{2}) (\d{2}:\d{2}:\d{2}) (.*): Failed password for (.*) from (\d*.\d*.\d*.\d*)
+dir=$1
+
+cd $dir/var/log
+cat * | awk '{ print $1, $2, $3, $4, $13}' | sed 's/:[[:digit:]][[:digit:]]:[[:digit:]][[:digit:]]//g' > failed_login_data.txt
